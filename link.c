@@ -1,0 +1,166 @@
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+void print();
+struct node
+{
+ int value;
+ struct node *next;
+};
+struct node *head=NULL;
+int main()
+{
+ int ch,val;
+ while(1)
+ {
+  printf("Choice 1: Insert at first\n");
+  printf("Choice 2: Delete at first\n");
+  printf("Choice 3: Insert at last\n");
+  printf("Choice 4: Delete at last\n");
+  printf("Choice 5: Insert at middle\n");
+  printf("Choice 6: Delete at middle\n");
+  printf("Choice 7: Display elements\n");
+  printf("Choice 8: Exit\n");
+  printf("Enter choice\n");
+  scanf("%d",&ch);
+  switch(ch)
+  {
+   case 1:
+   {
+    struct node *temp;
+    temp=(struct node*)malloc(sizeof(struct node));
+    printf("Enter value\n");
+    scanf("%d",&val);
+    temp->value=val;
+    temp->next=head;
+    head=temp;
+    break;
+   }
+   case 2:
+   	{
+   		if(head==NULL)
+   		 printf("No elements are inserted\n");
+   		else
+   		{
+   			head=head->next;
+		}
+		break;
+	}
+	case 3:
+	{
+		struct node *temp,*ins;
+		temp=(struct node*)malloc(sizeof(struct node));
+		ins=(struct node*)malloc(sizeof(struct node));
+		printf("Enter value\n");
+		scanf("%d",&val);
+		temp->value=val;
+		temp->next=NULL;
+		if(head==NULL)
+		{
+			head=temp;
+		}
+		else
+		{
+			ins=head;
+			while(ins->next!=NULL)
+			{
+				ins=ins->next;
+			}
+			ins->next=temp;
+		}
+		break;
+	}
+	case 4:
+	{
+	    struct node *del,*sec;
+		del=(struct node*)malloc(sizeof(struct node*));
+		sec=(struct node*)malloc(sizeof(struct node*));
+		if(head==NULL)
+		 printf("List is empty\n");
+		else
+		{
+			del=head;
+			sec=head;
+			while(del->next!=NULL)
+			{
+				sec=del;
+				del=del->next;
+			}
+			if(sec==NULL)
+			 head=NULL;
+			else
+			 sec->next=NULL;
+	    }
+	    break;
+	}	
+	case 5:
+	{
+		int mid,pos,i;
+		struct node *temp,*ins;
+		temp=(struct node *)malloc(sizeof(struct node));
+		ins=(struct node *)malloc(sizeof(struct node));
+		printf("Enter value and position to be inserted\n");
+		scanf("%d%d",&mid,&pos);
+		temp->value=mid;
+		temp->next=NULL;
+		if(head==NULL)
+		{
+			head=temp;
+		}
+		else
+		{
+			ins=head;
+			for(i=2;i<pos;i++)
+			{
+				ins=ins->next;
+			}
+			temp->next=ins->next;
+			ins->next=temp;
+	    }
+	    break;
+	}	
+	case 6:
+	{
+		int pos,i;
+		struct node *temp;
+		temp=(struct node *)malloc(sizeof(struct node));
+		printf("Enter position\n");
+		scanf("%d",&pos);
+		if(head==NULL)
+		 printf("List is empty\n");
+		else
+		{
+			temp=head;
+			for(i=2;i<pos;i++)
+			  temp=temp->next;
+			temp->next=temp->next->next;
+		}
+		break;
+	}
+	
+     case 7:
+    {
+     print();
+     break;
+    }
+    case 8:
+     exit(0);
+    default:
+     printf("Enter valid choice\n");
+   }
+  }
+  getchar();
+  return 0;
+ }
+ void print()
+ {
+ 	struct node *list;
+     list=(struct node*)malloc(sizeof(struct node));
+     list=head;
+     printf("The list contains\n");
+     while(list!=NULL)
+     {
+      printf("%d\n",list->value);
+      list=list->next;
+     }
+ }
